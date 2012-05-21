@@ -1,5 +1,6 @@
 package com.emc.greenplum.hadoop;
 
+import com.emc.greenplum.hadoop.plugins.*;
 import java.io.IOException;
 import java.util.List;
 

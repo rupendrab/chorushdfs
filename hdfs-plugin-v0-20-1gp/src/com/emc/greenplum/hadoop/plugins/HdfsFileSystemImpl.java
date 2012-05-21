@@ -1,4 +1,4 @@
-package com.emc.greenplum.hadoop;
+package com.emc.greenplum.hadoop.plugins;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;

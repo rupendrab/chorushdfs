@@ -1,9 +1,7 @@
 package com.example.helloworld.resources;
 
-import com.emc.greenplum.hadoop.HdfsEntity;
-import com.emc.greenplum.hadoop.HdfsFileSystem;
-import com.emc.greenplum.hadoop.HdfsFileSystemImpl;
-import com.example.helloworld.core.Saying;
+import com.emc.greenplum.hadoop.plugins.*;
+
 import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
 

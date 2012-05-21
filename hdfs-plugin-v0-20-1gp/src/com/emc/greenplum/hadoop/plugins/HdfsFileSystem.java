@@ -1,6 +1,4 @@
-package com.emc.greenplum.hadoop;
-
-import com.emc.greenplum.hadoop.HdfsEntity;
+package com.emc.greenplum.hadoop.plugins;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +14,7 @@ public interface HdfsFileSystem {
 
     public void loadFileSystem(String host, String port, String username) ;
 
-    public List<HdfsEntity> glob (String path) throws IOException;
+    public List<HdfsEntity> glob(String path) throws IOException;
 
     public void setClassLoader(ClassLoader classLoader);
 
