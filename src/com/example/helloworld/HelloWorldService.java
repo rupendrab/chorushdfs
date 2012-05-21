@@ -2,9 +2,12 @@ package com.example.helloworld;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Environment;
+import com.example.helloworld.resources.HelloWorldResource;
+import com.example.helloworld.health.TemplateHealthCheck;
 
 public class HelloWorldService extends Service<HelloWorldConfiguration> {
     public static void main(String[] args) throws Exception {
+
         new HelloWorldService().run(args);
     }
 
