@@ -1,5 +1,6 @@
 package com.emc.greenplum.hadoop.plugins;
 
+import org.xeustechnologies.jcl.JarClassLoader;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface HdfsFileSystem {
 
     public List<HdfsEntity> glob(String path) throws IOException;
 
-    public void setClassLoader(ClassLoader classLoader);
+    public void setClassLoader(JarClassLoader classLoader);
+
+    public boolean loadedSuccessfully();
 
 }
