@@ -1,5 +1,6 @@
 package com.emc.greenplum.hadoop.plugins;
 
+import org.xeustechnologies.jcl.JarClassLoader;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -19,10 +20,12 @@ import java.util.List;
  */
 public class HdfsFileSystemImpl implements HdfsFileSystem {
     FileSystem fileSystem;
-    private ClassLoader hadoopCl;
+    private JarClassLoader hadoopCl;
 
     @Override
     public void loadDependencies() {
+        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-logging-1.0.4.jar"));
+        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/hadoop-0.20.1gp-core.jar"));
     }
 
     @Override
@@ -39,7 +42,7 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
         try {
             fileSystem = FileSystem.get(config);
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
             Thread.currentThread().setContextClassLoader(originalClassLoader);
         }
@@ -66,7 +69,12 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
     }
 
     @Override
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(JarClassLoader classLoader) {
         hadoopCl = classLoader;
+    }
+
+    @Override
+    public boolean loadedSuccessfully() {
+        return fileSystem != null;
     }
 }

@@ -30,6 +30,11 @@
             <artifactId>hadoop-core</artifactId>
             <version>0.20.1gp</version>
         </dependency>
+        <dependency>
+            <groupId>org.xeustechnologies</groupId>
+            <artifactId>jcl-core</artifactId>
+            <version>2.3</version>
+        </dependency>
     </dependencies>
 
     <properties>
