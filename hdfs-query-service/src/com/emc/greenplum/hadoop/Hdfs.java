@@ -41,10 +41,10 @@ public class Hdfs  {
             fileSystem.loadFileSystem(host, port, username);
 
             if(fileSystem.loadedSuccessfully()) {
+                fileSystem.closeFileSystem();
                 return version;
             }
         }
-
         return null;
     }
 
@@ -52,15 +52,17 @@ public class Hdfs  {
         JarClassLoader jarClassLoader = new JarClassLoader();
 
         HdfsFileSystem hdfsFileSystem = loadObjectFromPlugin(jarClassLoader, version);
-
         hdfsFileSystem.setClassLoader(jarClassLoader);
-        hdfsFileSystem.loadDependencies();
 
         return hdfsFileSystem;
     }
 
     private HdfsFileSystem loadObjectFromPlugin(JarClassLoader jarClassLoader, HdfsVersion version) {
         jarClassLoader.add(getClass().getClassLoader().getResource(version.getPluginJar()));
+
+        for(String dependency: version.getDependencies()) {
+            jarClassLoader.add(getClass().getClassLoader().getResource(dependency));
+        }
 
         JclObjectFactory objectFactory = JclObjectFactory.getInstance();
         Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
@@ -76,5 +78,13 @@ public class Hdfs  {
             e.printStackTrace();
             return new ArrayList<HdfsEntity>();
         }
+    }
+
+    public String content(String path) throws IOException {
+        return fileSystem.getContent(path);
+    }
+
+    public void closeFileSystem() {
+        fileSystem.closeFileSystem();
     }
 }
