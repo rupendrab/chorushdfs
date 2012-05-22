@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>hdfs-plugin-interface</module>
         <module>hdfs-plugin-v0-20-1gp</module>
         <module>hdfs-query-service</module>
     </modules>

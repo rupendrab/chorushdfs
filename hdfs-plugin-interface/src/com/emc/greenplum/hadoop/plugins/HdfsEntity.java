@@ -1,6 +1,5 @@
 package com.emc.greenplum.hadoop.plugins;
 
-
 import java.util.Date;
 
 /**

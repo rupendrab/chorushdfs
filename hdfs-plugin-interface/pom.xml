@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.emc.greenplum</groupId>
-    <artifactId>hdfs-plugin-v0-20-1gp</artifactId>
+    <artifactId>hdfs-plugin-interface</artifactId>
     <version>0.0.1</version>
 
     <parent>
@@ -11,26 +11,6 @@
         <groupId>com.example</groupId>
         <version>0.0.1</version>
     </parent>
-
-    <repositories>
-        <repository>
-            <id>hdfs-repository</id>
-            <url>file://${basedir}/repo</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.emc.greenplum</groupId>
-            <artifactId>hdfs-plugin-interface</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-core</artifactId>
-            <version>0.20.1gp</version>
-        </dependency>
-    </dependencies>
 
     <properties>
         <!-- use UTF-8 for everything -->

@@ -14,14 +14,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.emc.greenplum</groupId>
+            <artifactId>hdfs-plugin-interface</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>0.4.0</version>
         </dependency>
         <dependency>
-            <groupId>com.emc.greenplum</groupId>
-            <artifactId>hdfs-plugin-v0-20-1gp</artifactId>
-            <version>0.0.1</version>
+            <groupId>org.xeustechnologies</groupId>
+            <artifactId>jcl-core</artifactId>
+            <version>2.3</version>
         </dependency>
     </dependencies>
 
@@ -33,6 +38,23 @@
 
     <build>
         <sourceDirectory>src</sourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${project.basedir}/../hdfs-plugin-v0-20-1gp/lib</directory>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+                <targetPath>META-INF/external-deps/</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/../hdfs-plugin-v0-20-1gp/target</directory>
+                <includes>
+                    <include>**/hdfs-plugin*.jar</include>
+                </includes>
+                <targetPath>META-INF/plugins/</targetPath>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>

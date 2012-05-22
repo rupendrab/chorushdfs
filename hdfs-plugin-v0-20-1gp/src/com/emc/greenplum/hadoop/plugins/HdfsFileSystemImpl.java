@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class HdfsFileSystemImpl implements HdfsFileSystem {
     FileSystem fileSystem;
+    private ClassLoader hadoopCl;
 
     @Override
     public void loadDependencies() {
@@ -26,14 +27,21 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
 
     @Override
     public void loadFileSystem(String host, String port, String username) {
+        ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(hadoopCl);
+
         Configuration config = new Configuration();
         config.set("fs.default.name", "hdfs://" + host + ":" + port);
         config.set("hadoop.jobs.ugi", username + "," + username);
+        config.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
+
 
         try {
             fileSystem = FileSystem.get(config);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } finally {
+            Thread.currentThread().setContextClassLoader(originalClassLoader);
         }
 
     }
@@ -59,6 +67,6 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
 
     @Override
     public void setClassLoader(ClassLoader classLoader) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        hadoopCl = classLoader;
     }
 }

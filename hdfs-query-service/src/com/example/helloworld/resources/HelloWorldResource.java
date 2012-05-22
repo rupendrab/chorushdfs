@@ -4,6 +4,9 @@ import com.emc.greenplum.hadoop.plugins.*;
 
 import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
+import org.xeustechnologies.jcl.JarClassLoader;
+import org.xeustechnologies.jcl.JclObjectFactory;
+import org.xeustechnologies.jcl.JclUtils;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -31,7 +34,17 @@ public class HelloWorldResource {
     @GET
     public List<HdfsEntity> sayHello(@QueryParam("name") Optional<String> name) {
 
-        HdfsFileSystem fileSystem = new HdfsFileSystemImpl();
+        JarClassLoader jarClassLoader = new JarClassLoader();
+        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-logging-1.0.4.jar"));
+        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/external-deps/hadoop-0.20.1gp-core.jar"));
+        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar"));
+
+        JclObjectFactory objectFactory = JclObjectFactory.getInstance();
+        Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
+
+        HdfsFileSystem fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+        fileSystem.setClassLoader(jarClassLoader);
+
         fileSystem.loadFileSystem("gillette", "8020", "pivotal");
 
         try {
