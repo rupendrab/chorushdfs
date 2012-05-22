@@ -32,20 +32,37 @@ public class HelloWorldResource {
     }
 
     @GET
-    public List<HdfsEntity> sayHello(@QueryParam("name") Optional<String> name) {
+    public List<HdfsEntity> sayHello(@QueryParam("host") String host) {
 
-        JarClassLoader jarClassLoader = new JarClassLoader();
-        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-logging-1.0.4.jar"));
-        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/external-deps/hadoop-0.20.1gp-core.jar"));
-        jarClassLoader.add(getClass().getClassLoader().getResource("META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar"));
+        String[] versions = {"META-INF/plugins/hdfs-plugin-v1-0.0.1.jar", "META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar"};
+        HdfsFileSystem fileSystem = null;
 
-        JclObjectFactory objectFactory = JclObjectFactory.getInstance();
-        Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
+        for(String version: versions) {
 
-        HdfsFileSystem fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
-        fileSystem.setClassLoader(jarClassLoader);
+            System.out.println("Trying to load version " + version);
 
-        fileSystem.loadFileSystem("gillette", "8020", "pivotal");
+            JarClassLoader jarClassLoader = new JarClassLoader();
+            jarClassLoader.add(getClass().getClassLoader().getResource(version));
+
+            JclObjectFactory objectFactory = JclObjectFactory.getInstance();
+            Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
+
+            fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+            fileSystem.setClassLoader(jarClassLoader);
+            fileSystem.loadDependencies();
+
+            fileSystem.loadFileSystem(host, "8020", "pivotal");
+
+            if(fileSystem.loadedSuccessfully()) {
+                System.out.println("Ok, version "+ version + " actually worked!");
+                break;
+            } else {
+                fileSystem = null;
+                System.out.println("Loading " + version + " didn't work, trying another one");
+            }
+
+        }
+
 
         try {
             return fileSystem.glob("/*");
