@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import com.example.helloworld.resources.HdfsEntitiesResource;
 import com.example.helloworld.resources.HdfsVersionResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Environment;
@@ -20,6 +21,7 @@ public class HelloWorldService extends Service<HelloWorldConfiguration> {
                               Environment environment) {
         final String template = configuration.getTemplate();
         environment.addResource(new HdfsVersionResource());
+        environment.addResource(new HdfsEntitiesResource());
         environment.addHealthCheck(new TemplateHealthCheck(template));
     }
 
