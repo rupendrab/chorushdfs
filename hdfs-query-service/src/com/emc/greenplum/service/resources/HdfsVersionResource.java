@@ -1,21 +1,13 @@
-package com.example.helloworld.resources;
+package com.emc.greenplum.service.resources;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.HdfsVersion;
-import com.emc.greenplum.hadoop.plugins.*;
-
-import com.google.common.base.Optional;
-import com.yammer.metrics.annotation.Timed;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/version")
 @Produces(MediaType.APPLICATION_JSON)

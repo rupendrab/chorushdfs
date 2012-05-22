@@ -1,4 +1,4 @@
-package com.example.helloworld.resources;
+package com.emc.greenplum.service.resources;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.HdfsVersion;

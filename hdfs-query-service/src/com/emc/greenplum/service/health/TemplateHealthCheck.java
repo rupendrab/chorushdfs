@@ -1,4 +1,4 @@
-package com.example.helloworld.health;
+package com.emc.greenplum.service.health;
 
 import com.yammer.metrics.core.HealthCheck;
 

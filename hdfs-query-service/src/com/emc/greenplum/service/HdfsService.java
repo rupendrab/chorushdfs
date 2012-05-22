@@ -1,23 +1,23 @@
-package com.example.helloworld;
+package com.emc.greenplum.service;
 
-import com.example.helloworld.resources.HdfsEntitiesResource;
-import com.example.helloworld.resources.HdfsVersionResource;
+import com.emc.greenplum.service.resources.HdfsEntitiesResource;
+import com.emc.greenplum.service.resources.HdfsVersionResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Environment;
-import com.example.helloworld.health.TemplateHealthCheck;
+import com.emc.greenplum.service.health.TemplateHealthCheck;
 
-public class HelloWorldService extends Service<HelloWorldConfiguration> {
+public class HdfsService extends Service<HdfsServiceConfiguration> {
     public static void main(String[] args) throws Exception {
 
-        new HelloWorldService().run(args);
+        new HdfsService().run(args);
     }
 
-    private HelloWorldService() {
+    private HdfsService() {
         super("hello-world");
     }
 
     @Override
-    protected void initialize(HelloWorldConfiguration configuration,
+    protected void initialize(HdfsServiceConfiguration configuration,
                               Environment environment) {
         final String template = configuration.getTemplate();
         environment.addResource(new HdfsVersionResource());
