@@ -20,6 +20,16 @@ public enum HdfsVersion {
         this.name = name;
     }
 
+    public static HdfsVersion findVersion(String versionName) {
+        for(HdfsVersion hdfsVersion: HdfsVersion.values()) {
+            if(hdfsVersion.getName().equals(versionName)) {
+                return hdfsVersion;
+            }
+        }
+
+        return null;
+    }
+
     public String getPluginJar() {
         return pluginJar;
     }
