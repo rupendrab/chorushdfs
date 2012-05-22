@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface HdfsFileSystem {
 
-    public void loadDependencies() ;
-
     public void loadFileSystem(String host, String port, String username) ;
+
+    public void closeFileSystem();
 
     public List<HdfsEntity> glob(String path) throws IOException;
 
@@ -21,4 +21,5 @@ public interface HdfsFileSystem {
 
     public boolean loadedSuccessfully();
 
+    String getContent(String path) throws IOException;
 }
