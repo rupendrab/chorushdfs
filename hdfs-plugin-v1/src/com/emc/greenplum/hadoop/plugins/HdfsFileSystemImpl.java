@@ -6,7 +6,10 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +21,12 @@ import java.util.List;
  * Time: 3:14 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HdfsFileSystemImpl implements HdfsFileSystem {
-    FileSystem fileSystem;
-    private JarClassLoader hadoopCl;
-
-    @Override
-    public void loadDependencies() {
-        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-logging-1.1.1.jar"));
-        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-lang-2.4.jar"));
-        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/commons-configuration-1.6.jar"));
-        hadoopCl.add(getClass().getClassLoader().getResource("META-INF/external-deps/hadoop-core-1.0.0.jar"));
-    }
+public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
+    private FileSystem fileSystem;
 
     @Override
     public void loadFileSystem(String host, String port, String username) {
-        ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(hadoopCl);
+        loadHadoopClassLoader();
 
         Configuration config = new Configuration();
         config.set("fs.default.name", "hdfs://" + host + ":" + port);
@@ -44,9 +37,17 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
         } catch (Exception e) {
            // e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
-            Thread.currentThread().setContextClassLoader(originalClassLoader);
+            restoreOriginalClassLoader();
         }
+    }
 
+    @Override
+    public void closeFileSystem() {
+        try {
+            fileSystem.close();
+        } catch (IOException e) {
+        }
+        fileSystem = null;
     }
 
     @Override
@@ -69,9 +70,24 @@ public class HdfsFileSystemImpl implements HdfsFileSystem {
     }
 
     @Override
-    public void setClassLoader(JarClassLoader classLoader) {
-        hadoopCl = classLoader;
+    public String getContent(String path) throws IOException {
+        DataInputStream in = (DataInputStream) fileSystem.open(new Path(path));
+
+        BufferedReader dataReader = new BufferedReader(new InputStreamReader(in));
+        String content = "";
+
+        String line = dataReader.readLine();
+        while(line != null) {
+            content += line;
+            line = dataReader.readLine();
+        }
+
+        dataReader.close();
+        in.close();
+
+        return content;
     }
+
 
     @Override
     public boolean loadedSuccessfully() {
