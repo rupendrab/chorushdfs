@@ -2,11 +2,12 @@ require 'json'
 require "net/http"
 require "uri"
 
-uri = URI.parse("http://localhost:5000/hello-world")
+ENV["HOST"] ||= "garcia"
+
+uri = URI.parse("http://localhost:5000/hello-world?host=#{ENV["HOST"]}&port=8020&username=pivotal")
 
 # Shortcut
 response = Net::HTTP.get_response(uri)
-entries = JSON.parse(response.body)
+puts response.body
 
-puts entries.size > 0
-exit entries.empty? ? 1 : 0
+exit response.body.empty? ? 1 : 0
