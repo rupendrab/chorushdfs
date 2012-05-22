@@ -2,6 +2,7 @@ package com.emc.greenplum.hadoop;
 
 import com.emc.greenplum.hadoop.plugins.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
@@ -17,11 +18,19 @@ public class Hdfs  {
     private String host;
     private String port;
     private String username;
+    private HdfsFileSystem fileSystem;
 
     public Hdfs(String host, String port, String username) {
         this.host = host;
         this.port = port;
         this.username = username;
+    }
+
+    public Hdfs(String host, String port, String username, HdfsVersion version) {
+        this(host, port, username);
+
+        fileSystem = loadPlugin(version);
+        fileSystem.loadFileSystem(host, port, username);
     }
 
     public HdfsVersion getServerVersion() {
@@ -57,5 +66,15 @@ public class Hdfs  {
         Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
 
         return (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+    }
+
+    public List<HdfsEntity> glob(String path) {
+        System.out.println("Listing " + path);
+        try {
+            return fileSystem.glob(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<HdfsEntity>();
+        }
     }
 }
