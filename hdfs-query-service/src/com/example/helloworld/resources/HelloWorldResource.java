@@ -1,12 +1,11 @@
 package com.example.helloworld.resources;
 
+import com.emc.greenplum.hadoop.Hdfs;
+import com.emc.greenplum.hadoop.HdfsVersion;
 import com.emc.greenplum.hadoop.plugins.*;
 
 import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
-import org.xeustechnologies.jcl.JarClassLoader;
-import org.xeustechnologies.jcl.JclObjectFactory;
-import org.xeustechnologies.jcl.JclUtils;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,43 +31,10 @@ public class HelloWorldResource {
     }
 
     @GET
-    public List<HdfsEntity> sayHello(@QueryParam("host") String host) {
+    public String sayHello(@QueryParam("host") String host, @QueryParam("port") String port, @QueryParam("username") String username) {
+        Hdfs hdfs = new Hdfs(host, port, username);
+        HdfsVersion version = hdfs.getServerVersion();
 
-        String[] versions = {"META-INF/plugins/hdfs-plugin-v1-0.0.1.jar", "META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar"};
-        HdfsFileSystem fileSystem = null;
-
-        for(String version: versions) {
-
-            System.out.println("Trying to load version " + version);
-
-            JarClassLoader jarClassLoader = new JarClassLoader();
-            jarClassLoader.add(getClass().getClassLoader().getResource(version));
-
-            JclObjectFactory objectFactory = JclObjectFactory.getInstance();
-            Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
-
-            fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
-            fileSystem.setClassLoader(jarClassLoader);
-            fileSystem.loadDependencies();
-
-            fileSystem.loadFileSystem(host, "8020", "pivotal");
-
-            if(fileSystem.loadedSuccessfully()) {
-                System.out.println("Ok, version "+ version + " actually worked!");
-                break;
-            } else {
-                fileSystem = null;
-                System.out.println("Loading " + version + " didn't work, trying another one");
-            }
-
-        }
-
-
-        try {
-            return fileSystem.glob("/*");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<HdfsEntity>();
-        }
+        return version.getName();
     }
 }
