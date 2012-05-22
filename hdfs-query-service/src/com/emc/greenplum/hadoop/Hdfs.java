@@ -28,43 +28,34 @@ public class Hdfs  {
         HdfsFileSystem fileSystem = null;
 
         for(HdfsVersion version: HdfsVersion.values()) {
-
-            System.out.println("Trying to load version " + version.getName());
-
-            JarClassLoader jarClassLoader = new JarClassLoader();
-            jarClassLoader.add(getClass().getClassLoader().getResource(version.getPluginJar()));
-
-            JclObjectFactory objectFactory = JclObjectFactory.getInstance();
-            Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
-
-            fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
-            fileSystem.setClassLoader(jarClassLoader);
-            fileSystem.loadDependencies();
-
+            fileSystem = loadPlugin(version);
             fileSystem.loadFileSystem(host, port, username);
 
             if(fileSystem.loadedSuccessfully()) {
                 return version;
             }
-
         }
 
         return null;
     }
 
-    private HdfsFileSystem fs = null;
+    private HdfsFileSystem loadPlugin(HdfsVersion version) {
+        JarClassLoader jarClassLoader = new JarClassLoader();
 
-    public Hdfs(HdfsFileSystem fs) {
-        this.fs = fs;
+        HdfsFileSystem hdfsFileSystem = loadObjectFromPlugin(jarClassLoader, version);
+
+        hdfsFileSystem.setClassLoader(jarClassLoader);
+        hdfsFileSystem.loadDependencies();
+
+        return hdfsFileSystem;
     }
 
-    public List<HdfsEntity> list(String path) {
-        try {
-            return fs.glob("/");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    private HdfsFileSystem loadObjectFromPlugin(JarClassLoader jarClassLoader, HdfsVersion version) {
+        jarClassLoader.add(getClass().getClassLoader().getResource(version.getPluginJar()));
 
+        JclObjectFactory objectFactory = JclObjectFactory.getInstance();
+        Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
+
+        return (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+    }
 }
