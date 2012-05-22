@@ -1,5 +1,6 @@
 package com.emc.greenplum.service;
 
+import com.emc.greenplum.service.resources.HdfsContentResource;
 import com.emc.greenplum.service.resources.HdfsEntitiesResource;
 import com.emc.greenplum.service.resources.HdfsVersionResource;
 import com.yammer.dropwizard.Service;
@@ -22,6 +23,7 @@ public class HdfsService extends Service<HdfsServiceConfiguration> {
         final String template = configuration.getTemplate();
         environment.addResource(new HdfsVersionResource());
         environment.addResource(new HdfsEntitiesResource());
+        environment.addResource(new HdfsContentResource());
         environment.addHealthCheck(new TemplateHealthCheck(template));
     }
 

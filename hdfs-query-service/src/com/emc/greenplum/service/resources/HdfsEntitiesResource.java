@@ -29,6 +29,9 @@ public class HdfsEntitiesResource {
         HdfsVersion version = HdfsVersion.findVersion(versionName);
         Hdfs hdfs = new Hdfs(host, port, username, version);
 
-        return hdfs.glob(path + "*");
+        List<HdfsEntity> entities = hdfs.glob(path + "*");
+        hdfs.closeFileSystem();
+
+        return entities;
     }
 }
