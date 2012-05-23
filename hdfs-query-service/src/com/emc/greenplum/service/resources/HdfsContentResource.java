@@ -2,12 +2,11 @@ package com.emc.greenplum.service.resources;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.HdfsVersion;
-import com.emc.greenplum.hadoop.plugins.HdfsEntity;
+import com.emc.greenplum.service.SimpleResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +21,7 @@ import java.util.List;
 public class HdfsContentResource {
 
     @GET
-    public String getContent(@PathParam("version") String versionName,
+    public SimpleResponse getContent(@PathParam("version") String versionName,
                                         @PathParam("path") String path,
                                         @QueryParam("host") String host,
                                         @QueryParam("port") String port,
@@ -39,7 +38,7 @@ public class HdfsContentResource {
         } catch (IOException e) {
         } finally {
             hdfs.closeFileSystem();
-            return content;
+            return new SimpleResponse(content);
         }
     }
 }
