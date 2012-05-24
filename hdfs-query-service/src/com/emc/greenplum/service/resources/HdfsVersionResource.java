@@ -19,6 +19,10 @@ public class HdfsVersionResource {
         Hdfs hdfs = new Hdfs(host, port, username);
         HdfsVersion version = hdfs.getServerVersion();
 
-        return new SimpleResponse(version.getName());
+        try {
+            return new SimpleResponse(version.getName());
+        } catch (Exception e) {
+            return new SimpleResponse(null);
+        }
     }
 }

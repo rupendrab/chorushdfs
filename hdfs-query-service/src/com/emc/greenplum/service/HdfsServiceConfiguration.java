@@ -7,17 +7,5 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class HdfsServiceConfiguration extends Configuration {
     @NotEmpty
     @JsonProperty
-    private String template;
-
-    @NotEmpty
-    @JsonProperty
-    private String defaultName = "Stranger";
-
-    public String getTemplate() {
-        return template;
-    }
-
-    public String getDefaultName() {
-        return defaultName;
-    }
+    private String query_service_url;
 }

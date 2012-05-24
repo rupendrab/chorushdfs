@@ -14,17 +14,16 @@ public class HdfsService extends Service<HdfsServiceConfiguration> {
     }
 
     private HdfsService() {
-        super("hello-world");
+        super("");
     }
 
     @Override
     protected void initialize(HdfsServiceConfiguration configuration,
                               Environment environment) {
-        final String template = configuration.getTemplate();
         environment.addResource(new HdfsVersionResource());
         environment.addResource(new HdfsEntitiesResource());
         environment.addResource(new HdfsContentResource());
-        environment.addHealthCheck(new TemplateHealthCheck(template));
+        environment.addHealthCheck(new TemplateHealthCheck());
     }
 
 }

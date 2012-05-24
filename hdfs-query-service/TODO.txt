@@ -1,0 +1,2 @@
+- Add Timeout when trying to connect to a hadoop server
+- Add correct response when trying to connect to a invalid host
