@@ -70,10 +70,9 @@ public class Hdfs  {
         return (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
     }
 
-    public List<HdfsEntity> glob(String path) {
-        System.out.println("Listing " + path);
+    public List<HdfsEntity> list(String path) {
         try {
-            return fileSystem.glob(path);
+            return fileSystem.list(path);
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<HdfsEntity>();

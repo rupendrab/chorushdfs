@@ -15,7 +15,7 @@ public interface HdfsFileSystem {
 
     public void closeFileSystem();
 
-    public List<HdfsEntity> glob(String path) throws IOException;
+    public List<HdfsEntity> list(String path) throws IOException;
 
     public void setClassLoader(JarClassLoader classLoader);
 

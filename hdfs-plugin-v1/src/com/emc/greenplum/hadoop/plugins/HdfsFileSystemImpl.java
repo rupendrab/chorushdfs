@@ -10,8 +10,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,8 +51,8 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     @Override
-    public List<HdfsEntity> glob(String path) throws IOException {
-        FileStatus[] fileStatuses = fileSystem.globStatus(new Path(path));
+    public List<HdfsEntity> list(String path) throws IOException {
+        FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
         List<HdfsEntity> entities = new ArrayList<HdfsEntity>();
 
         for(FileStatus fileStatus: fileStatuses) {
@@ -60,8 +60,13 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
 
             entity.setDirectory(fileStatus.isDir());
             entity.setPath(fileStatus.getPath().toUri().getPath());
-            entity.setModifiedAt(new Time(fileStatus.getModificationTime()));
+            entity.setModifiedAt(new Date(fileStatus.getModificationTime()));
             entity.setSize(fileStatus.getLen());
+
+            if(fileStatus.isDir()) {
+                FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
+                entity.setContentCount(contents.length);
+            }
 
             entities.add(entity);
         }

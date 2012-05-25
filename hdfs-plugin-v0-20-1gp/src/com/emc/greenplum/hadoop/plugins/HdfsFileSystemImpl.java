@@ -53,8 +53,8 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     @Override
-    public List<HdfsEntity> glob(String path) throws IOException {
-        FileStatus[] fileStatuses = fileSystem.globStatus(new Path(path));
+    public List<HdfsEntity> list(String path) throws IOException {
+        FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
         List<HdfsEntity> entities = new ArrayList<HdfsEntity>();
 
         for(FileStatus fileStatus: fileStatuses) {
@@ -64,6 +64,11 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
             entity.setPath(fileStatus.getPath().toUri().getPath());
             entity.setModifiedAt(new Time(fileStatus.getModificationTime()));
             entity.setSize(fileStatus.getLen());
+
+            if(fileStatus.isDir()) {
+                FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
+                entity.setContentCount(contents.length);
+            }
 
             entities.add(entity);
         }
