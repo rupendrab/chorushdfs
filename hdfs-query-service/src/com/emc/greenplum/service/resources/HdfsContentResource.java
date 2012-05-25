@@ -7,6 +7,8 @@ import com.emc.greenplum.service.SimpleResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +23,7 @@ import java.io.IOException;
 public class HdfsContentResource {
 
     @GET
-    public SimpleResponse getContent(@PathParam("version") String versionName,
+    public List<String> getContent(@PathParam("version") String versionName,
                                         @PathParam("path") String path,
                                         @QueryParam("host") String host,
                                         @QueryParam("port") String port,
@@ -31,14 +33,14 @@ public class HdfsContentResource {
         HdfsVersion version = HdfsVersion.findVersion(versionName);
         Hdfs hdfs = new Hdfs(host, port, username, version);
 
-        String content = "";
+        List<String> content = new ArrayList<String>();
 
         try {
             content = hdfs.content(path);
         } catch (IOException e) {
         } finally {
             hdfs.closeFileSystem();
-            return new SimpleResponse(content);
+            return content;
         }
     }
 }

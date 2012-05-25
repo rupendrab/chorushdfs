@@ -21,5 +21,5 @@ public interface HdfsFileSystem {
 
     public boolean loadedSuccessfully();
 
-    String getContent(String path) throws IOException;
+    List<String> getContent(String path) throws IOException;
 }

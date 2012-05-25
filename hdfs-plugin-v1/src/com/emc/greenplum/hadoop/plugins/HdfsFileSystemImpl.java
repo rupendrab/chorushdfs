@@ -70,22 +70,22 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     @Override
-    public String getContent(String path) throws IOException {
+    public List<String> getContent(String path) throws IOException {
         DataInputStream in = (DataInputStream) fileSystem.open(new Path(path));
 
         BufferedReader dataReader = new BufferedReader(new InputStreamReader(in));
-        String content = "";
+        ArrayList<String> lines = new ArrayList<String>();
 
         String line = dataReader.readLine();
         while(line != null) {
-            content += line;
+            lines.add(line);
             line = dataReader.readLine();
         }
 
         dataReader.close();
         in.close();
 
-        return content;
+        return lines;
     }
 
 

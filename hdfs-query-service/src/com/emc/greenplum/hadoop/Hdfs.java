@@ -80,7 +80,7 @@ public class Hdfs  {
         }
     }
 
-    public String content(String path) throws IOException {
+    public List<String> content(String path) throws IOException {
         return fileSystem.getContent(path);
     }
 
