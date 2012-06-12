@@ -30,9 +30,8 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
 
         Configuration config = new Configuration();
         config.set("fs.default.name", "hdfs://" + host + ":" + port);
-        config.set("hadoop.jobs.ugi", username + "," + username);
+        config.set("hadoop.job.ugi", username + ", " + username);
         config.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
-
 
         try {
             fileSystem = FileSystem.get(config);
