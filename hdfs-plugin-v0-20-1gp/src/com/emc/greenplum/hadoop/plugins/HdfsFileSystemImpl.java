@@ -45,7 +45,7 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     @Override
     public void closeFileSystem() {
         try {
-            fileSystem.close();
+            fileSystem.closeAll();
         } catch (IOException e) {
         }
         fileSystem = null;
@@ -65,8 +65,12 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
             entity.setSize(fileStatus.getLen());
 
             if(fileStatus.isDir()) {
-                FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
-                entity.setContentCount(contents.length);
+                try {
+                    FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
+                    entity.setContentCount(contents.length);
+                } catch(Exception exception) {
+                    entity.setContentCount(-1);
+                }
             }
 
             entities.add(entity);

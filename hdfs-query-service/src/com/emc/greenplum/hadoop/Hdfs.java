@@ -4,6 +4,9 @@ import com.emc.greenplum.hadoop.plugins.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
+
+import com.emc.greenplum.service.resources.HdfsTerminator;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.JclUtils;
@@ -84,6 +87,11 @@ public class Hdfs  {
     }
 
     public void closeFileSystem() {
-        fileSystem.closeFileSystem();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> future = executor.submit(new HdfsTerminator(fileSystem));
+        try {
+            future.get(2, TimeUnit.SECONDS);
+        } catch (Exception e) {
+        }
     }
 }
