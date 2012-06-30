@@ -1,4 +1,4 @@
-package com.emc.greenplum.service.resources;
+package com.emc.greenplum.hadoop;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;

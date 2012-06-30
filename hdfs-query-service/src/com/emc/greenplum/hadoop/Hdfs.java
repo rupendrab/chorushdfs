@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-import com.emc.greenplum.service.resources.HdfsTerminator;
 import org.xeustechnologies.jcl.JarClassLoader;
 import org.xeustechnologies.jcl.JclObjectFactory;
 import org.xeustechnologies.jcl.JclUtils;
@@ -34,6 +33,10 @@ public class Hdfs  {
 
         fileSystem = loadPlugin(version);
         fileSystem.loadFileSystem(host, port, username);
+    }
+
+    public Hdfs(String host, String port, String username, String versionName) {
+        this(host, port,username, HdfsVersion.findVersion(versionName));
     }
 
     public HdfsVersion getServerVersion() {
@@ -79,11 +82,17 @@ public class Hdfs  {
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<HdfsEntity>();
+        } catch (Exception e) {
+            return null;
         }
     }
 
     public List<String> content(String path) throws IOException {
-        return fileSystem.getContent(path);
+        try {
+            return fileSystem.getContent(path);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void closeFileSystem() {
