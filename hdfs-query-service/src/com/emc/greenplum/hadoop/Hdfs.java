@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-import org.xeustechnologies.jcl.JarClassLoader;
-import org.xeustechnologies.jcl.JclObjectFactory;
-import org.xeustechnologies.jcl.JclUtils;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pivotal
@@ -31,7 +27,8 @@ public class Hdfs  {
     public Hdfs(String host, String port, String username, HdfsVersion version) {
         this(host, port, username);
 
-        fileSystem = loadPlugin(version);
+        HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
+        fileSystem = pluginLoader.loadPlugin();
         fileSystem.loadFileSystem(host, port, username);
     }
 
@@ -43,7 +40,9 @@ public class Hdfs  {
         HdfsFileSystem fileSystem = null;
 
         for(HdfsVersion version: HdfsVersion.values()) {
-            fileSystem = loadPlugin(version);
+            HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
+
+            fileSystem = pluginLoader.loadPlugin();
             fileSystem.loadFileSystem(host, port, username);
 
             if(fileSystem.loadedSuccessfully()) {
@@ -52,28 +51,6 @@ public class Hdfs  {
             }
         }
         return null;
-    }
-
-    private HdfsFileSystem loadPlugin(HdfsVersion version) {
-        JarClassLoader jarClassLoader = new JarClassLoader();
-
-        HdfsFileSystem hdfsFileSystem = loadObjectFromPlugin(jarClassLoader, version);
-        hdfsFileSystem.setClassLoader(jarClassLoader);
-
-        return hdfsFileSystem;
-    }
-
-    private HdfsFileSystem loadObjectFromPlugin(JarClassLoader jarClassLoader, HdfsVersion version) {
-        jarClassLoader.add(getClass().getClassLoader().getResource(version.getPluginJar()));
-
-        for(String dependency: version.getDependencies()) {
-            jarClassLoader.add(getClass().getClassLoader().getResource(dependency));
-        }
-
-        JclObjectFactory objectFactory = JclObjectFactory.getInstance();
-        Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
-
-        return (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
     }
 
     public List<HdfsEntity> list(String path) {
