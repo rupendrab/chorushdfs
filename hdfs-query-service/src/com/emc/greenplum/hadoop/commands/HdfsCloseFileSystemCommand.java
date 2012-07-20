@@ -1,4 +1,4 @@
-package com.emc.greenplum.hadoop;
+package com.emc.greenplum.hadoop.commands;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;
@@ -12,16 +12,16 @@ import java.util.concurrent.Callable;
  * Time: 5:31 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HdfsTerminator implements Callable {
-    private HdfsFileSystem hdfs;
+public class HdfsCloseFileSystemCommand implements Callable {
+    private HdfsFileSystem fileSystem;
 
-    public HdfsTerminator(HdfsFileSystem hdfs) {
-        this.hdfs = hdfs;
+    public HdfsCloseFileSystemCommand(HdfsFileSystem fileSystem) {
+        this.fileSystem = fileSystem;
     }
 
     @Override
     public Object call() throws Exception {
-        hdfs.closeFileSystem();
+        fileSystem.closeFileSystem();
         return null;
     }
 }

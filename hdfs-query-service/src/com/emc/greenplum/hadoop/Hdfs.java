@@ -1,5 +1,9 @@
 package com.emc.greenplum.hadoop;
 
+import com.emc.greenplum.hadoop.commands.HdfsCloseFileSystemCommand;
+import com.emc.greenplum.hadoop.commands.HdfsContentCommand;
+import com.emc.greenplum.hadoop.commands.HdfsFileSystemLoaderCommand;
+import com.emc.greenplum.hadoop.commands.HdfsListCommand;
 import com.emc.greenplum.hadoop.plugins.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +16,8 @@ import java.util.concurrent.*;
  * Date: 5/18/12
  */
 public class Hdfs  {
+
+    public static int timeout = 5;
 
     private String host;
     private String port;
@@ -43,7 +49,8 @@ public class Hdfs  {
             HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
 
             fileSystem = pluginLoader.loadPlugin();
-            fileSystem.loadFileSystem(host, port, username);
+
+            protectTimeout(new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
 
             if(fileSystem.loadedSuccessfully()) {
                 fileSystem.closeFileSystem();
@@ -55,10 +62,10 @@ public class Hdfs  {
 
     public List<HdfsEntity> list(String path) {
         try {
-            return fileSystem.list(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<HdfsEntity>();
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<List<HdfsEntity>> future = executor.submit(new HdfsListCommand(fileSystem, path));
+
+            return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             return null;
         }
@@ -66,17 +73,25 @@ public class Hdfs  {
 
     public List<String> content(String path) throws IOException {
         try {
-            return fileSystem.getContent(path);
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path));
+
+            return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             return null;
         }
     }
 
     public void closeFileSystem() {
+        protectTimeout(new HdfsCloseFileSystemCommand(fileSystem));
+    }
+
+    private void protectTimeout(Callable command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(new HdfsTerminator(fileSystem));
+        Future<String> future = executor.submit(command);
+
         try {
-            future.get(2, TimeUnit.SECONDS);
+            future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
         }
     }
