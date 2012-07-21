@@ -50,7 +50,8 @@ public class Hdfs  {
 
             fileSystem = pluginLoader.loadPlugin();
 
-            protectTimeout(new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
+            int time = (int)Math.ceil((double)timeout / (double)HdfsVersion.values().length);
+            protectTimeout(time, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
 
             if(fileSystem.loadedSuccessfully()) {
                 fileSystem.closeFileSystem();
@@ -83,10 +84,10 @@ public class Hdfs  {
     }
 
     public void closeFileSystem() {
-        protectTimeout(new HdfsCloseFileSystemCommand(fileSystem));
+        protectTimeout(timeout, new HdfsCloseFileSystemCommand(fileSystem));
     }
 
-    private void protectTimeout(Callable command) {
+    private void protectTimeout(int seconds, Callable command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(command);
 
