@@ -70,9 +70,9 @@ public class Hdfs {
         }
     }
 
-    public List<String> content(String path) throws IOException {
+    public List<String> content(String path, int lineCount) throws IOException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path));
+        Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path, lineCount));
 
         try {
             return future.get(timeout, TimeUnit.SECONDS);

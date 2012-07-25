@@ -145,14 +145,14 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     @Override
-    public List<String> getContent(String path) throws IOException {
+    public List<String> getContent(String path, int lineCount) throws IOException {
         DataInputStream in = (DataInputStream) fileSystem.open(new Path(path));
 
         BufferedReader dataReader = new BufferedReader(new InputStreamReader(in));
         ArrayList<String> lines = new ArrayList<String>();
 
         String line = dataReader.readLine();
-        while (line != null) {
+        while (line != null && lines.size() < lineCount) {
             lines.add(line);
             line = dataReader.readLine();
         }

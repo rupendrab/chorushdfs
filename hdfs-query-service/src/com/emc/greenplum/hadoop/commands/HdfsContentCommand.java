@@ -18,15 +18,17 @@ import java.util.concurrent.Callable;
 public class HdfsContentCommand implements Callable<List<String>> {
     private HdfsFileSystem fileSystem;
     private String path;
+    private int lines;
 
-    public HdfsContentCommand(HdfsFileSystem fileSystem, String path) {
+    public HdfsContentCommand(HdfsFileSystem fileSystem, String path, int lines) {
         this.fileSystem = fileSystem;
         this.path = path;
+        this.lines = lines;
     }
 
     public List<String> call() {
         try {
-            return fileSystem.getContent(path);
+            return fileSystem.getContent(path, lines);
         } catch (IOException e) {
             return new ArrayList<String>();
         }
