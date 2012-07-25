@@ -50,6 +50,20 @@
                 <targetPath>META-INF/plugins/</targetPath>
             </resource>
             <resource>
+                <directory>${project.basedir}/../hdfs-plugin-v0-20-2mr/lib</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <targetPath>META-INF/external-deps/</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/../hdfs-plugin-v0-20-2mr/target</directory>
+                <includes>
+                    <include>**/hdfs-plugin*.jar</include>
+                </includes>
+                <targetPath>META-INF/plugins/</targetPath>
+            </resource>
+            <resource>
                 <directory>${project.basedir}/../hdfs-plugin-v1/lib</directory>
                 <includes>
                     <include>**/*.jar</include>
@@ -105,7 +119,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.emc.greenplum.service.HdfsService</mainClass>
+                                    <mainClass>TestConnect</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
