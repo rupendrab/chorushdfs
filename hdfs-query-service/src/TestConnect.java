@@ -11,9 +11,7 @@ import com.emc.greenplum.hadoop.plugins.HdfsEntity;
  */
 public class TestConnect {
     public static void main(String [] args) {
-        Hdfs hdfs = new Hdfs("chorus-gpmr12", "7222", "root", HdfsVersion.V0202MAPR);
-        for(HdfsEntity entity: hdfs.list("/")) {
-            System.out.println("Entity: "+ entity.getPath());
-        }
+        Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "pivotal");
+        System.out.println(hdfs.getServerVersion().getName());
     }
 }

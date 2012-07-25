@@ -5,18 +5,12 @@ import com.emc.greenplum.hadoop.commands.HdfsContentCommand;
 import com.emc.greenplum.hadoop.commands.HdfsFileSystemLoaderCommand;
 import com.emc.greenplum.hadoop.commands.HdfsListCommand;
 import com.emc.greenplum.hadoop.plugins.*;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: pivotal
- * Date: 5/18/12
- */
-public class Hdfs  {
-
+public class Hdfs {
     public static int timeout = 5;
 
     private String host;
@@ -39,21 +33,22 @@ public class Hdfs  {
     }
 
     public Hdfs(String host, String port, String username, String versionName) {
-        this(host, port,username, HdfsVersion.findVersion(versionName));
+        this(host, port, username, HdfsVersion.findVersion(versionName));
     }
 
     public HdfsVersion getServerVersion() {
+
         HdfsFileSystem fileSystem = null;
 
-        for(HdfsVersion version: HdfsVersion.values()) {
+        for (HdfsVersion version : HdfsVersion.values()) {
             HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
 
             fileSystem = pluginLoader.loadPlugin();
 
-            int time = (int)Math.ceil((double)timeout / (double)HdfsVersion.values().length);
+            int time = (int) Math.ceil((double) timeout / (double) HdfsVersion.values().length);
             protectTimeout(time, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
 
-            if(fileSystem.loadedSuccessfully()) {
+            if (fileSystem.loadedSuccessfully()) {
                 fileSystem.closeFileSystem();
                 return version;
             }
@@ -62,24 +57,30 @@ public class Hdfs  {
     }
 
     public List<HdfsEntity> list(String path) {
-        try {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            Future<List<HdfsEntity>> future = executor.submit(new HdfsListCommand(fileSystem, path));
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<List<HdfsEntity>> future = executor.submit(new HdfsListCommand(fileSystem, path));
 
+        try {
             return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             return null;
+        } finally {
+            future.cancel(true);
+            executor.shutdownNow();
         }
     }
 
     public List<String> content(String path) throws IOException {
-        try {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path));
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path));
 
+        try {
             return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             return null;
+        } finally {
+            future.cancel(true);
+            executor.shutdownNow();
         }
     }
 
@@ -94,6 +95,9 @@ public class Hdfs  {
         try {
             future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
+        } finally {
+            future.cancel(true);
+            executor.shutdownNow();
         }
     }
 }
