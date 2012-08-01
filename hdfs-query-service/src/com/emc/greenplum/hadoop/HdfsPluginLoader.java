@@ -7,6 +7,8 @@ import org.xeustechnologies.jcl.JclUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +18,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class HdfsPluginLoader {
-    private static Map<HdfsVersion, JarClassLoader> jarCache = new HashMap<HdfsVersion, JarClassLoader>();
+    private static Map<HdfsVersion, JarClassLoader> jarCache = new ConcurrentHashMap<HdfsVersion, JarClassLoader>();
     private HdfsVersion version;
 
     HdfsPluginLoader(HdfsVersion version) {
@@ -35,10 +37,7 @@ public class HdfsPluginLoader {
         JarClassLoader jarClassLoader = new JarClassLoader();
         jarCache.put(version, jarClassLoader);
 
-        HdfsFileSystem hdfsFileSystem = loadObjectFromPlugin(jarClassLoader);
-        hdfsFileSystem.setClassLoader(jarClassLoader);
-
-        return hdfsFileSystem;
+        return loadObjectFromPlugin(jarClassLoader);
     }
 
     private HdfsFileSystem loadObjectFromPlugin(JarClassLoader jarClassLoader) {
@@ -51,6 +50,9 @@ public class HdfsPluginLoader {
         JclObjectFactory objectFactory = JclObjectFactory.getInstance();
         Object hdfsObject = objectFactory.create(jarClassLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
 
-        return (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+        HdfsFileSystem fileSystem = (HdfsFileSystem) JclUtils.toCastable(hdfsObject, HdfsFileSystem.class);
+        fileSystem.setClassLoader(jarClassLoader);
+
+        return fileSystem;
     }
 }

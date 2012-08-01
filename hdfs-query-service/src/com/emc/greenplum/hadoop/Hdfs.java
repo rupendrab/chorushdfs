@@ -18,25 +18,7 @@ public class Hdfs {
     private String username;
     private HdfsFileSystem fileSystem;
 
-    public Hdfs(String host, String port, String username) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-    }
-
-    public Hdfs(String host, String port, String username, HdfsVersion version) {
-        this(host, port, username);
-
-        HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
-        fileSystem = pluginLoader.loadPlugin();
-        fileSystem.loadFileSystem(host, port, username);
-    }
-
-    public Hdfs(String host, String port, String username, String versionName) {
-        this(host, port, username, HdfsVersion.findVersion(versionName));
-    }
-
-    public HdfsVersion getServerVersion() {
+    public static HdfsVersion getServerVersion(String host, String port, String username) {
 
         HdfsFileSystem fileSystem = null;
 
@@ -56,6 +38,20 @@ public class Hdfs {
         return null;
     }
 
+    public Hdfs(String host, String port, String username, HdfsVersion version) {
+        this.host = host;
+        this.port = port;
+        this.username = username;
+
+        HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
+        fileSystem = pluginLoader.loadPlugin();
+        fileSystem.loadFileSystem(host, port, username);
+    }
+
+    public Hdfs(String host, String port, String username, String versionName) {
+        this(host, port, username, HdfsVersion.findVersion(versionName));
+    }
+
     public List<HdfsEntity> list(String path) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<List<HdfsEntity>> future = executor.submit(new HdfsListCommand(fileSystem, path));
@@ -63,6 +59,7 @@ public class Hdfs {
         try {
             return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         } finally {
             future.cancel(true);
@@ -77,6 +74,7 @@ public class Hdfs {
         try {
             return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         } finally {
             future.cancel(true);
@@ -88,13 +86,14 @@ public class Hdfs {
         protectTimeout(timeout, new HdfsCloseFileSystemCommand(fileSystem));
     }
 
-    private void protectTimeout(int seconds, Callable command) {
+    private static synchronized void protectTimeout(int seconds, Callable command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(command);
 
         try {
             future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             future.cancel(true);
             executor.shutdownNow();
