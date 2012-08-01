@@ -1,6 +1,5 @@
 package com.emc.greenplum.hadoop.plugins;
 
-import org.xeustechnologies.jcl.JarClassLoader;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -8,10 +7,8 @@ import org.apache.hadoop.fs.Path;
 
 import java.io.*;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -45,15 +42,13 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     private void prepareDynamicLibraries() {
-        String osPath = System.getProperty("os.name").replace(" ", "_") + "-" + System.getProperty("os.arch");
-
-        String jarPathMac = "META-INF/external-deps/native/" + osPath + "/libMapRClient.dylib";
-        String jarPathLinux = "META-INF/external-deps/native/" + osPath + "/libMapRClient.so";
+        String jarInputPath = "META-INF/external-deps/native";
         String outputPath = System.getProperty("java.io.tmpdir");
 
         try {
-            copyFileFromJar(jarPathMac, "dylib", outputPath);
-            copyFileFromJar(jarPathLinux, "so", outputPath);
+            copyFileFromJar(jarInputPath, "libMapRClient.dylib", outputPath);
+            copyFileFromJar(jarInputPath, "libMapRClient.so", outputPath);
+            copyFileFromJar(jarInputPath, "libhadoop.so", outputPath);
 
             addDir(outputPath);
         } catch (IOException e) {
@@ -62,12 +57,12 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
 
     }
 
-    private void copyFileFromJar(String jarPath, String extension, String outputPath) {
+    private void copyFileFromJar(String origin, String fileName, String outputPath) {
         try {
-            InputStream in = hadoopCl.getResourceAsStream(jarPath);
+            InputStream in = hadoopCl.getResourceAsStream(origin + "/" + fileName);
             if (in == null) { return; }
 
-            File libFile = new File(outputPath, "libMapRClient." + extension);
+            File libFile = new File(outputPath, fileName);
             libFile.deleteOnExit();
 
             OutputStream out = new BufferedOutputStream(new FileOutputStream(libFile));
