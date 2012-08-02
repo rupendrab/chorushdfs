@@ -23,8 +23,6 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
 
     @Override
     public void loadFileSystem(String host, String port, String username) {
-        prepareDynamicLibraries();
-
         loadHadoopClassLoader();
 
         Configuration config = new Configuration();
@@ -40,67 +38,6 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
             restoreOriginalClassLoader();
         }
     }
-
-    private void prepareDynamicLibraries() {
-        String jarInputPath = "META-INF/external-deps/native";
-        String outputPath = System.getProperty("java.io.tmpdir");
-
-        try {
-            copyFileFromJar(jarInputPath, "libMapRClient.dylib", outputPath);
-            copyFileFromJar(jarInputPath, "libMapRClient.so", outputPath);
-            copyFileFromJar(jarInputPath, "libhadoop.so", outputPath);
-
-            addDir(outputPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void copyFileFromJar(String origin, String fileName, String outputPath) {
-        try {
-            InputStream in = hadoopCl.getResourceAsStream(origin + "/" + fileName);
-            if (in == null) { return; }
-
-            File libFile = new File(outputPath, fileName);
-            libFile.deleteOnExit();
-
-            OutputStream out = new BufferedOutputStream(new FileOutputStream(libFile));
-
-            int len = 0;
-            byte[] buffer = new byte[8192];
-            while ((len = in.read(buffer)) > -1)
-                out.write(buffer, 0, len);
-            out.close();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addDir(String s) throws IOException {
-        try {
-            Field field = ClassLoader.class.getDeclaredField("usr_paths");
-            field.setAccessible(true);
-            String[] paths = (String[]) field.get(null);
-            for (int i = 0; i < paths.length; i++) {
-                if (s.equals(paths[i])) {
-                    return;
-                }
-            }
-            String[] tmp = new String[paths.length + 1];
-            System.arraycopy(paths, 0, tmp, 0, paths.length);
-
-            tmp[paths.length] = s;
-            field.set(null, tmp);
-            System.setProperty("java.library.path", System.getProperty("java.library.path") + File.pathSeparator + s);
-        } catch (IllegalAccessException e) {
-            throw new IOException("Failed to get permissions to set library path");
-        } catch (NoSuchFieldException e) {
-            throw new IOException("Failed to get field handle to set library path");
-        }
-    }
-
 
     @Override
     public void closeFileSystem() {

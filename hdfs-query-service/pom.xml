@@ -52,7 +52,7 @@
             <resource>
                 <directory>${project.basedir}/../hdfs-plugin-v0-20-2mr/lib</directory>
                 <includes>
-                    <include>**/*</include>
+                    <include>**/*.jar</include>
                 </includes>
                 <targetPath>META-INF/external-deps/</targetPath>
             </resource>
