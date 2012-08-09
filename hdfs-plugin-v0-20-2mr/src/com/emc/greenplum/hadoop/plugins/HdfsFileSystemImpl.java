@@ -31,9 +31,10 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         config.set("fs.hdfs.impl", "com.mapr.fs.MapRFileSystem");
 
         try {
-            fileSystem = FileSystem.get(config);
+            FileSystem tmpFileSystem = FileSystem.get(config);
+            tmpFileSystem.listStatus(new Path("/"));
+            fileSystem = tmpFileSystem;
         } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             restoreOriginalClassLoader();
         }

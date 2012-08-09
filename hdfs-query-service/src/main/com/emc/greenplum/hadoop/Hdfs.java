@@ -31,8 +31,7 @@ public class Hdfs {
         for (HdfsVersion version : HdfsVersion.values()) {
             fileSystem = getPluginLoader().fileSystem(version);
 
-            int time = (int) Math.ceil((double) timeout / (double) HdfsVersion.values().length);
-            protectTimeout(time, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
+            protectTimeout(timeout, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
 
             if (fileSystem.loadedSuccessfully()) {
                 fileSystem.closeFileSystem();
@@ -98,7 +97,7 @@ public class Hdfs {
         Future<String> future = executor.submit(command);
 
         try {
-            future.get(timeout, TimeUnit.SECONDS);
+            future.get(seconds, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace(loggerStream);
         } finally {

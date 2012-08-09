@@ -36,7 +36,6 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         try {
             fileSystem = FileSystem.get(config);
         } catch (IOException e) {
-            //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
             restoreOriginalClassLoader();
         }
@@ -56,7 +55,7 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         FileStatus[] fileStatuses = fileSystem.listStatus(new Path(path));
         List<HdfsEntity> entities = new ArrayList<HdfsEntity>();
 
-        for(FileStatus fileStatus: fileStatuses) {
+        for (FileStatus fileStatus : fileStatuses) {
             HdfsEntity entity = new HdfsEntity();
 
             entity.setDirectory(fileStatus.isDir());
@@ -64,11 +63,11 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
             entity.setModifiedAt(new Time(fileStatus.getModificationTime()));
             entity.setSize(fileStatus.getLen());
 
-            if(fileStatus.isDir()) {
+            if (fileStatus.isDir()) {
                 try {
                     FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
                     entity.setContentCount(contents.length);
-                } catch(Exception exception) {
+                } catch (Exception exception) {
                     entity.setContentCount(-1);
                 }
             }

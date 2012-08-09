@@ -33,5 +33,4 @@ public abstract class HdfsFileSystemPlugin  implements  HdfsFileSystem {
         originalClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(hadoopCl);
     }
-
 }

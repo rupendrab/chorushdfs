@@ -35,7 +35,6 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         try {
             fileSystem = FileSystem.get(FileSystem.getDefaultUri(config), config, username);
         } catch (Exception e) {
-           // e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
             restoreOriginalClassLoader();
         }

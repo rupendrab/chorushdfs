@@ -46,8 +46,7 @@ public class IntegrationTest {
 
     @Test
     public void testFindNonExistantServerVersion() throws Exception {
-//        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist.com", "1234", "root");
-        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist", "1234", "root");
+        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist.com", "1234", "root");
         assertNull(version);
     }
 }
