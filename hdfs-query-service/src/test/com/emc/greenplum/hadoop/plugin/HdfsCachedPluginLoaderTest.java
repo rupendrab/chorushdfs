@@ -1,9 +1,6 @@
-package test.com.emc.greenplum.hadoop.plugin;
+package com.emc.greenplum.hadoop.plugin;
 
-import com.emc.greenplum.hadoop.plugin.HdfsCachedPluginLoader;
 import com.emc.greenplum.hadoop.HdfsVersion;
-import com.emc.greenplum.hadoop.plugin.HdfsPluginBuilder;
-import com.emc.greenplum.hadoop.plugin.HdfsPluginLoader;
 import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;
 import org.junit.Before;
 import org.junit.Test;
