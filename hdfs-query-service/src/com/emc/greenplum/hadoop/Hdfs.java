@@ -4,6 +4,8 @@ import com.emc.greenplum.hadoop.commands.HdfsCloseFileSystemCommand;
 import com.emc.greenplum.hadoop.commands.HdfsContentCommand;
 import com.emc.greenplum.hadoop.commands.HdfsFileSystemLoaderCommand;
 import com.emc.greenplum.hadoop.commands.HdfsListCommand;
+import com.emc.greenplum.hadoop.plugin.HdfsCachedPluginLoader;
+import com.emc.greenplum.hadoop.plugin.HdfsPluginBuilder;
 import com.emc.greenplum.hadoop.plugins.*;
 
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.util.concurrent.*;
 
 public class Hdfs {
     public static int timeout = 5;
+
+    private static HdfsCachedPluginLoader pluginLoader;
 
     private String host;
     private String port;
@@ -23,9 +27,7 @@ public class Hdfs {
         HdfsFileSystem fileSystem = null;
 
         for (HdfsVersion version : HdfsVersion.values()) {
-            HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
-
-            fileSystem = pluginLoader.loadPlugin();
+            fileSystem = getPluginLoader().loadPlugin(version);
 
             int time = (int) Math.ceil((double) timeout / (double) HdfsVersion.values().length);
             protectTimeout(time, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
@@ -43,8 +45,7 @@ public class Hdfs {
         this.port = port;
         this.username = username;
 
-        HdfsPluginLoader pluginLoader = new HdfsPluginLoader(version);
-        fileSystem = pluginLoader.loadPlugin();
+        fileSystem = getPluginLoader().loadPlugin(version);
         fileSystem.loadFileSystem(host, port, username);
     }
 
@@ -98,5 +99,12 @@ public class Hdfs {
             future.cancel(true);
             executor.shutdownNow();
         }
+    }
+
+    private static HdfsCachedPluginLoader getPluginLoader() {
+        if (pluginLoader == null) {
+            pluginLoader = new HdfsCachedPluginLoader(new HdfsPluginBuilder());
+        }
+        return pluginLoader;
     }
 }
