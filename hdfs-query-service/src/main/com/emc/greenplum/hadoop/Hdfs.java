@@ -52,47 +52,26 @@ public class Hdfs {
     }
 
     public List<HdfsEntity> list(String path) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<List<HdfsEntity>> future = executor.submit(new HdfsListCommand(fileSystem, path));
-
-        try {
-            return future.get(timeout, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            e.printStackTrace(loggerStream);
-            return null;
-        } finally {
-            future.cancel(true);
-            executor.shutdownNow();
-        }
+        return protectTimeout(new HdfsListCommand(fileSystem, path));
     }
 
     public List<String> content(String path, int lineCount) throws IOException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<List<String>> future = executor.submit(new HdfsContentCommand(fileSystem, path, lineCount));
-
-        try {
-            return future.get(timeout, TimeUnit.SECONDS);
-        } catch (Exception e) {
-            e.printStackTrace(loggerStream);
-            return null;
-        } finally {
-            future.cancel(true);
-            executor.shutdownNow();
-        }
+        return protectTimeout(new HdfsContentCommand(fileSystem, path, lineCount));
     }
 
     public void closeFileSystem() {
         protectTimeout(new HdfsCloseFileSystemCommand(fileSystem));
     }
 
-    private static synchronized void protectTimeout(Callable command) {
+    private static synchronized <T> T protectTimeout(Callable<T> command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(command);
+        Future<T> future = executor.submit(command);
 
         try {
-            future.get(timeout, TimeUnit.SECONDS);
+            return future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace(loggerStream);
+            return null;
         } finally {
             future.cancel(true);
             executor.shutdownNow();

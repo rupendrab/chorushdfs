@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e49ae24-a26a-4b5d-8e2d-a4fbcff39897" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystem.java" afterPath="$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemPlugin.java" afterPath="$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-plugin-v0-20-1gp/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" afterPath="$PROJECT_DIR$/hdfs-plugin-v0-20-1gp/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-plugin-v0-20-2mr/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" afterPath="$PROJECT_DIR$/hdfs-plugin-v0-20-2mr/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-plugin-v1/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" afterPath="$PROJECT_DIR$/hdfs-plugin-v1/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service-parent.iws" afterPath="$PROJECT_DIR$/hdfs-query-service-parent.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/Hdfs.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/Hdfs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/commands/HdfsCloseFileSystemCommand.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/commands/HdfsCloseFileSystemCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/commands/HdfsContentCommand.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/commands/HdfsContentCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginBuilder.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginBuilderTest.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginBuilderTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java" />
     </list>
     <ignored path="hdfs-query-service-parent.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,7 +95,7 @@
           <file leaf-file-name="Hdfs.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/Hdfs.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="53" column="43" selection-start="1893" selection-end="1893" vertical-scroll-proportion="0.5181129">
+                <state line="73" column="24" selection-start="2633" selection-end="2633" vertical-scroll-proportion="0.7572402">
                   <folding />
                 </state>
               </provider>
@@ -195,17 +185,6 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="HdfsTest.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/HdfsTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="25" column="0" selection-start="520" selection-end="520" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="IntegrationTest.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java">
               <provider selected="true" editor-type-id="text-editor">
@@ -512,6 +491,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hdfs-query-service-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chorushdfs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hdfs-plugin-interface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hdfs-query-service-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chorushdfs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hdfs-plugin-interface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -924,13 +939,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/commands/HdfsCloseFileSystemCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="38" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
@@ -1015,15 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="28" selection-start="825" selection-end="825" vertical-scroll-proportion="0.2652733">
-          <folding>
-            <element signature="e#969#977#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="44" selection-start="86" selection-end="86" vertical-scroll-proportion="0.0">
@@ -1045,9 +1044,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hdfs-plugin-interface/src/com/emc/greenplum/hadoop/plugins/HdfsFileSystemPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="28" selection-start="825" selection-end="825" vertical-scroll-proportion="0.2652733">
+          <folding>
+            <element signature="e#969#977#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/Hdfs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="43" selection-start="1893" selection-end="1893" vertical-scroll-proportion="0.5181129">
+        <state line="73" column="24" selection-start="2633" selection-end="2633" vertical-scroll-proportion="0.7572402">
           <folding />
         </state>
       </provider>
