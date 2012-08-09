@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
  * Time: 6:18 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HdfsCachedPluginLoaderTest {
+public class HdfsCachedPluginBuilderTest {
 
     private HdfsPluginBuilder builder;
     private HdfsPluginLoader pluginLoaderMock;
@@ -29,18 +29,18 @@ public class HdfsCachedPluginLoaderTest {
 
     @Test
     public void testLoadPluginWhenNewVersion() throws Exception {
-        new HdfsCachedPluginLoader(builder).loadPlugin(HdfsVersion.V1);
+        new HdfsCachedPluginBuilder(builder).build(HdfsVersion.V1);
         verify(builder).build(HdfsVersion.V1);
     }
 
     @Test
     public void testLoadPluginFromCache() {
-        HdfsCachedPluginLoader hdfsCachedPluginLoader = new HdfsCachedPluginLoader(builder);
-        HdfsFileSystem first = hdfsCachedPluginLoader.loadPlugin(HdfsVersion.V1);
+        HdfsCachedPluginBuilder hdfsCachedPluginLoader = new HdfsCachedPluginBuilder(builder);
+        HdfsFileSystem first = hdfsCachedPluginLoader.fileSystem(HdfsVersion.V1);
         verify(builder).build(HdfsVersion.V1);
 
         reset(builder);
-        HdfsFileSystem second = hdfsCachedPluginLoader.loadPlugin(HdfsVersion.V1);
+        HdfsFileSystem second = hdfsCachedPluginLoader.fileSystem(HdfsVersion.V1);
         verifyZeroInteractions(builder);
 
         assertEquals(first, second);

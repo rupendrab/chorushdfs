@@ -2,7 +2,11 @@ package com.emc.greenplum.hadoop.plugin;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.HdfsVersion;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +18,11 @@ import static org.junit.Assert.*;
  * To change this template use File | Settings | File Templates.
  */
 public class IntegrationTest {
+    @Before
+    public void setUp() throws Exception {
+        Hdfs.setLoggerStream(new PrintStream(new File("/dev/null")));
+    }
+
     @Test
     public void testMapRPlugin() throws Exception {
         HdfsVersion version = Hdfs.getServerVersion("chorus-gpmr12.sf.pivotallabs.com", "7222", "root");
@@ -33,5 +42,12 @@ public class IntegrationTest {
         HdfsVersion version = Hdfs.getServerVersion("chorus-gphd02.sf.pivotallabs.com", "8020", "root");
         Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "root", version);
         assertNotSame(0, hdfs.list("/").size());
+    }
+
+    @Test
+    public void testFindNonExistantServerVersion() throws Exception {
+//        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist.com", "1234", "root");
+        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist", "1234", "root");
+        assertNull(version);
     }
 }

@@ -24,7 +24,7 @@ public class HdfsPluginLoader {
         }
     }
 
-    HdfsFileSystem loadObjectFromPlugin() {
+    public HdfsFileSystem loadObjectFromPlugin() {
         JclObjectFactory objectFactory = JclObjectFactory.getInstance();
         Object hdfsObject = objectFactory.create(classLoader, "com.emc.greenplum.hadoop.plugins.HdfsFileSystemImpl");
 
