@@ -5,8 +5,8 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-import java.io.*;
-import java.lang.reflect.Field;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,24 +78,9 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
     }
 
     @Override
-    public List<String> getContent(String path, int lineCount) throws IOException {
-        DataInputStream in = (DataInputStream) fileSystem.open(new Path(path));
-
-        BufferedReader dataReader = new BufferedReader(new InputStreamReader(in));
-        ArrayList<String> lines = new ArrayList<String>();
-
-        String line = dataReader.readLine();
-        while (line != null && lines.size() < lineCount) {
-            lines.add(line);
-            line = dataReader.readLine();
-        }
-
-        dataReader.close();
-        in.close();
-
-        return lines;
+    public DataInputStream open(String path) throws IOException {
+        return fileSystem.open(new Path(path));
     }
-
 
     @Override
     public boolean loadedSuccessfully() {

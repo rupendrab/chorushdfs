@@ -2,13 +2,15 @@ package com.emc.greenplum.hadoop.plugin;
 
 import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.HdfsVersion;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +23,12 @@ public class IntegrationTest {
     @Before
     public void setUp() throws Exception {
         Hdfs.setLoggerStream(new PrintStream(new File("/dev/null")));
+        Hdfs.timeout = 1;
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Hdfs.timeout = 5;
     }
 
     @Test

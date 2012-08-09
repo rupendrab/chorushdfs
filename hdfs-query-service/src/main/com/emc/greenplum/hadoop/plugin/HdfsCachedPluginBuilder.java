@@ -1,7 +1,6 @@
 package com.emc.greenplum.hadoop.plugin;
 
 import com.emc.greenplum.hadoop.HdfsVersion;
-import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

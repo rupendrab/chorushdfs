@@ -1,6 +1,5 @@
 package com.emc.greenplum.hadoop.commands;
 
-import com.emc.greenplum.hadoop.Hdfs;
 import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;
 
 import java.util.concurrent.Callable;

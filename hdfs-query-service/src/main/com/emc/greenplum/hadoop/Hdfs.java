@@ -6,7 +6,8 @@ import com.emc.greenplum.hadoop.commands.HdfsFileSystemLoaderCommand;
 import com.emc.greenplum.hadoop.commands.HdfsListCommand;
 import com.emc.greenplum.hadoop.plugin.HdfsCachedPluginBuilder;
 import com.emc.greenplum.hadoop.plugin.HdfsPluginBuilder;
-import com.emc.greenplum.hadoop.plugins.*;
+import com.emc.greenplum.hadoop.plugins.HdfsEntity;
+import com.emc.greenplum.hadoop.plugins.HdfsFileSystem;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -18,10 +19,6 @@ public class Hdfs {
 
     private static HdfsCachedPluginBuilder pluginLoader;
     private static PrintStream loggerStream = System.out;
-
-    private String host;
-    private String port;
-    private String username;
     private HdfsFileSystem fileSystem;
 
     public static HdfsVersion getServerVersion(String host, String port, String username) {
@@ -31,7 +28,7 @@ public class Hdfs {
         for (HdfsVersion version : HdfsVersion.values()) {
             fileSystem = getPluginLoader().fileSystem(version);
 
-            protectTimeout(timeout, new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
+            protectTimeout(new HdfsFileSystemLoaderCommand(fileSystem, host, port, username));
 
             if (fileSystem.loadedSuccessfully()) {
                 fileSystem.closeFileSystem();
@@ -46,10 +43,6 @@ public class Hdfs {
     }
 
     public Hdfs(String host, String port, String username, HdfsVersion version) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-
         fileSystem = getPluginLoader().fileSystem(version);
         fileSystem.loadFileSystem(host, port, username);
     }
@@ -89,15 +82,15 @@ public class Hdfs {
     }
 
     public void closeFileSystem() {
-        protectTimeout(timeout, new HdfsCloseFileSystemCommand(fileSystem));
+        protectTimeout(new HdfsCloseFileSystemCommand(fileSystem));
     }
 
-    private static synchronized void protectTimeout(int seconds, Callable command) {
+    private static synchronized void protectTimeout(Callable command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(command);
 
         try {
-            future.get(seconds, TimeUnit.SECONDS);
+            future.get(timeout, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace(loggerStream);
         } finally {
