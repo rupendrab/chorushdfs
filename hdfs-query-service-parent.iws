@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e49ae24-a26a-4b5d-8e2d-a4fbcff39897" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/Hdfs.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/HdfsVersion.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/commands/HdfsCloseFileSystemCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/commands/HdfsContentCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/commands/HdfsFileSystemLoaderCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/commands/HdfsListCommand.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/plugin/HdfsPluginBuilder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/plugin/HdfsPluginLoader.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/TestConnect.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/test/TestConnect.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hdfs-query-service/src/test/TestConnect.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service-parent.iws" afterPath="$PROJECT_DIR$/hdfs-query-service-parent.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/pom.xml" afterPath="$PROJECT_DIR$/hdfs-query-service/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoaderTest.java" afterPath="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoaderTest.java" />
     </list>
     <ignored path="hdfs-query-service-parent.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,10 +79,19 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="HdfsVersion.java" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="HdfsVersion.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/HdfsVersion.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="10" column="12" selection-start="204" selection-end="204" vertical-scroll-proportion="0.17835909">
+                <state line="10" column="12" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="dependency-reduced-pom.xml" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/hdfs-query-service/target/dependency-reduced-pom.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="85" column="29" selection-start="3028" selection-end="3028" vertical-scroll-proportion="0.35355148">
                   <folding />
                 </state>
               </provider>
@@ -109,11 +110,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TestConnect.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/TestConnect.java">
+          <file leaf-file-name="IntegrationTest.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="18" column="31" selection-start="691" selection-end="691" vertical-scroll-proportion="0.2930403">
-                  <folding />
+                <state line="33" column="79" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -145,10 +148,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/hdfs-query-service/pom.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="46" column="34" selection-start="1641" selection-end="1641" vertical-scroll-proportion="0.0">
+                <state line="142" column="40" selection-start="5788" selection-end="5788" vertical-scroll-proportion="0.8415922">
                   <folding />
                 </state>
               </provider>
@@ -179,8 +182,9 @@
         <option value="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsPCachedluginLoaderTest.java" />
         <option value="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoader.java" />
         <option value="$PROJECT_DIR$/hdfs-query-service/src/com/emc/greenplum/hadoop/Hdfs.java" />
-        <option value="$PROJECT_DIR$/hdfs-query-service/pom.xml" />
         <option value="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoaderTest.java" />
+        <option value="$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java" />
+        <option value="$PROJECT_DIR$/hdfs-query-service/pom.xml" />
       </list>
     </option>
   </component>
@@ -200,6 +204,7 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="1" />
     <option name="y" value="22" />
     <option name="width" value="2560" />
     <option name="height" value="1414" />
@@ -310,28 +315,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="hdfs-query-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hdfs-query-service-parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chorushdfs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hdfs-query-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -472,6 +455,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
@@ -500,63 +484,7 @@
       <recent name="$PROJECT_DIR$/hdfs-query-service/src/test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.HdfsCachedPluginLoaderTest">
-    <configuration default="false" name="HdfsPluginLoaderTest.testLoadPlugin" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="test.com.emc.greenplum.hadoop.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="hdfs-query-service" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="test.com.emc.greenplum.hadoop.plugin" />
-      <option name="MAIN_CLASS_NAME" value="test.com.emc.greenplum.hadoop.plugin.HdfsPluginLoaderTest" />
-      <option name="METHOD_NAME" value="testLoadPlugin" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="HdfsPluginLoaderTest.testLoadPluginWhenNewVersion" type="JUnit" factoryName="JUnit" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="test.com.emc.greenplum.hadoop.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="hdfs-query-service" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="test.com.emc.greenplum.hadoop.plugin" />
-      <option name="MAIN_CLASS_NAME" value="test.com.emc.greenplum.hadoop.plugin.HdfsPluginLoaderTest" />
-      <option name="METHOD_NAME" value="testLoadPluginWhenNewVersion" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.IntegrationTest">
     <configuration default="false" name="HdfsCachedPluginLoaderTest.testLoadPluginFromCache" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
@@ -630,6 +558,62 @@
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="IntegrationTest.testMapRPlugin" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.emc.greenplum.hadoop.plugin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="hdfs-query-service" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="com.emc.greenplum.hadoop.plugin" />
+      <option name="MAIN_CLASS_NAME" value="com.emc.greenplum.hadoop.plugin.IntegrationTest" />
+      <option name="METHOD_NAME" value="testMapRPlugin" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=hdfs-plugin-v0-20-2mr/lib/native/" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="IntegrationTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.emc.greenplum.hadoop.plugin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="hdfs-query-service" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="PACKAGE_NAME" value="com.emc.greenplum.hadoop.plugin" />
+      <option name="MAIN_CLASS_NAME" value="com.emc.greenplum.hadoop.plugin.IntegrationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=hdfs-plugin-v0-20-2mr/lib/native/" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
@@ -741,11 +725,11 @@
       </method>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.HdfsPluginLoaderTest.testLoadPlugin" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.HdfsPluginLoaderTest.testLoadPluginWhenNewVersion" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest.testLoadPluginFromCache" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest.testLoadPluginWhenNewVersion" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest.testLoadPluginFromCache" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.HdfsCachedPluginLoaderTest.testLoadPluginWhenNewVersion" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.IntegrationTest.testMapRPlugin" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.IntegrationTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -762,13 +746,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="2560" height="1414" extended-state="6" />
-    <editor active="true" />
+    <frame x="1" y="22" width="2560" height="1414" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -776,18 +761,17 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32869297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2316879" sideWeight="0.671307" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2316879" sideWeight="0.67053366" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869297" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -865,13 +849,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/HdfsCachedPluginLoaderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="1" selection-start="1462" selection-end="1462" vertical-scroll-proportion="0.0">
@@ -881,21 +858,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/main/com/emc/greenplum/hadoop/HdfsVersion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="12" selection-start="204" selection-end="204" vertical-scroll-proportion="0.17835909">
+        <state line="10" column="12" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="27" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hdfs-query-service/target/dependency-reduced-pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="29" selection-start="3028" selection-end="3028" vertical-scroll-proportion="0.35355148">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/com/emc/greenplum/hadoop/plugin/IntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="79" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hdfs-query-service/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="34" selection-start="1641" selection-end="1641" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hdfs-query-service/src/test/TestConnect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="31" selection-start="691" selection-end="691" vertical-scroll-proportion="0.2930403">
+        <state line="142" column="40" selection-start="5788" selection-end="5788" vertical-scroll-proportion="0.8415922">
           <folding />
         </state>
       </provider>
