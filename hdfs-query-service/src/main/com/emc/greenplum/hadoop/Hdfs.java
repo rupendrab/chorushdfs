@@ -17,39 +17,27 @@ public class Hdfs {
     private static HdfsCachedPluginBuilder pluginLoader;
     private static PrintStream loggerStream = System.out;
     private final HdfsFileSystem fileSystem;
-
-    public static HdfsVersion getServerVersion(final String host, final String port, final String username) {
-        HdfsFileSystem fileSystem;
-
-        for (HdfsVersion version : HdfsVersion.values()) {
-            fileSystem = getPluginLoader().fileSystem(version);
-
-            final HdfsFileSystem fileSystem1 = fileSystem;
-            protectTimeout(new Callable() {
-                public Object call() {
-                    fileSystem1.loadFileSystem(host, port, username);
-                    return  null;
-                }
-            });
-
-            if (fileSystem.loadedSuccessfully()) {
-                fileSystem.closeFileSystem();
-                return version;
-            }
-        }
-        return null;
-    }
+    private HdfsVersion version;
 
     public static void setLoggerStream(PrintStream stream) {
         loggerStream = stream;
     }
 
+    public Hdfs(String host, String port, String username ) {
+        this(host, port, username, detectVersion(host, port, username));
+    }
+
     public Hdfs(String host, String port, String username, HdfsVersion version) {
-        fileSystem = loadFileSystem(host, port, username, version);
+        this.version = version;
+        fileSystem = loadFileSystem(host, port, username);
     }
 
     public Hdfs(String host, String port, String username, String versionName) {
         this(host, port, username, HdfsVersion.findVersion(versionName));
+    }
+
+    public HdfsVersion getVersion() {
+        return version;
     }
 
     public List<HdfsEntity> list(final String path) {
@@ -101,6 +89,7 @@ public class Hdfs {
         }
     }
 
+
     private static HdfsCachedPluginBuilder getPluginLoader() {
         if (pluginLoader == null) {
             pluginLoader = new HdfsCachedPluginBuilder(new HdfsPluginBuilder());
@@ -108,7 +97,33 @@ public class Hdfs {
         return pluginLoader;
     }
 
-    private HdfsFileSystem loadFileSystem(String host, String port, String username, HdfsVersion version) {
+    private static HdfsVersion detectVersion(final String host, final String port, final String username) {
+        HdfsFileSystem fileSystem;
+
+        for (HdfsVersion version : HdfsVersion.values()) {
+            fileSystem = getPluginLoader().fileSystem(version);
+
+            final HdfsFileSystem fileSystem1 = fileSystem;
+            protectTimeout(new Callable() {
+                public Object call() {
+                    fileSystem1.loadFileSystem(host, port, username);
+                    return  null;
+                }
+            });
+
+            if (fileSystem.loadedSuccessfully()) {
+                fileSystem.closeFileSystem();
+                return version;
+            }
+        }
+        return null;
+    }
+
+    private HdfsFileSystem loadFileSystem(String host, String port, String username) {
+        if (version == null) {
+            return null;
+        }
+
         HdfsFileSystem fileSystem = getPluginLoader().fileSystem(version);
         fileSystem.loadFileSystem(host, port, username);
         return fileSystem;

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.mockito.Mockito.*;
 
 /**
@@ -22,9 +23,8 @@ public class HdfsCachedPluginBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        builder = mock(HdfsPluginBuilder.class);
+        builder = spy(new HdfsPluginBuilder());
         pluginLoaderMock = mock(HdfsPluginLoader.class);
-        when(builder.build(HdfsVersion.V1)).thenReturn(pluginLoaderMock);
     }
 
     @Test
@@ -36,13 +36,18 @@ public class HdfsCachedPluginBuilderTest {
     @Test
     public void testLoadPluginFromCache() {
         HdfsCachedPluginBuilder hdfsCachedPluginLoader = new HdfsCachedPluginBuilder(builder);
-        HdfsFileSystem first = hdfsCachedPluginLoader.fileSystem(HdfsVersion.V1);
+        HdfsPluginLoader first = hdfsCachedPluginLoader.build(HdfsVersion.V1);
         verify(builder).build(HdfsVersion.V1);
 
         reset(builder);
-        HdfsFileSystem second = hdfsCachedPluginLoader.fileSystem(HdfsVersion.V1);
+        HdfsPluginLoader second = hdfsCachedPluginLoader.build(HdfsVersion.V0201GP);
+        verify(builder).build(HdfsVersion.V0201GP);
+
+        reset(builder);
+        HdfsPluginLoader firstAgain = hdfsCachedPluginLoader.build(HdfsVersion.V1);
         verifyZeroInteractions(builder);
 
-        assertEquals(first, second);
+        assertEquals(first, firstAgain);
+        assertNotSame(first, second);
     }
 }

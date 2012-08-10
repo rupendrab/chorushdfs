@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 
@@ -33,28 +34,28 @@ public class IntegrationTest {
 
     @Test
     public void testMapRPlugin() throws Exception {
-        HdfsVersion version = Hdfs.getServerVersion("chorus-gpmr12.sf.pivotallabs.com", "7222", "root");
-        Hdfs hdfs = new Hdfs("chorus-gpmr12.sf.pivotallabs.com", "7222", "root", version);
+        Hdfs hdfs = new Hdfs("chorus-gpmr12.sf.pivotallabs.com", "7222", "root");
+        assertEquals(HdfsVersion.V0202MAPR, hdfs.getVersion());
         assertNotSame(0, hdfs.list("/").size());
     }
 
     @Test
     public void testGphd11Plugin() throws Exception {
-        HdfsVersion version = Hdfs.getServerVersion("chorus-gphd11.sf.pivotallabs.com", "8020", "root");
-        Hdfs hdfs = new Hdfs("chorus-gphd11.sf.pivotallabs.com", "8020", "root", version);
+        Hdfs hdfs = new Hdfs("chorus-gphd11.sf.pivotallabs.com", "8020", "root");
+        assertEquals(HdfsVersion.V1, hdfs.getVersion());
         assertNotSame(0, hdfs.list("/").size());
     }
 
     @Test
     public void testGphd02Plugin() throws Exception {
-        HdfsVersion version = Hdfs.getServerVersion("chorus-gphd02.sf.pivotallabs.com", "8020", "root");
-        Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "root", version);
+        Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "root");
+        assertEquals(HdfsVersion.V0201GP, hdfs.getVersion());
         assertNotSame(0, hdfs.list("/").size());
     }
 
     @Test
     public void testFindNonExistantServerVersion() throws Exception {
-        HdfsVersion version = Hdfs.getServerVersion("this.doesnt.exist.com", "1234", "root");
-        assertNull(version);
+        Hdfs hdfs = new Hdfs("this.doesnt.exist.com", "1234", "root");
+        assertNull(hdfs.getVersion());
     }
 }
