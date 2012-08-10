@@ -74,6 +74,10 @@ public class Hdfs {
         });
     }
 
+    public void finalize() {
+        closeFileSystem();
+    }
+
     private static synchronized <T> T protectTimeout(Callable<T> command) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<T> future = executor.submit(command);
