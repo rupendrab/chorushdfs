@@ -19,12 +19,10 @@ import static org.mockito.Mockito.*;
 public class HdfsCachedPluginBuilderTest {
 
     private HdfsPluginBuilder builder;
-    private HdfsPluginLoader pluginLoaderMock;
 
     @Before
     public void setUp() throws Exception {
         builder = spy(new HdfsPluginBuilder());
-        pluginLoaderMock = mock(HdfsPluginLoader.class);
     }
 
     @Test
