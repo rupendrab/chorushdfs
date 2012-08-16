@@ -10,7 +10,7 @@ package com.emc.greenplum.hadoop;
 
 public enum HdfsVersion {
     V0202MAPR("0.20.2mr", "META-INF/plugins/hdfs-plugin-v0-20-2mr-0.0.1.jar", new String []{
-            "META-INF/external-deps/commons-logging-1.0.4.jar",
+            "META-INF/external-deps/commons-logging-1.1.1.jar",
             "META-INF/external-deps/maprfs-0.1.jar",
             "META-INF/external-deps/zookeeper-3.3.2.jar",
             "META-INF/external-deps/hadoop-0.20.2mr-core.jar"
@@ -22,7 +22,7 @@ public enum HdfsVersion {
             "META-INF/external-deps/hadoop-core-1.0.0.jar"
     }),
     V0201GP("0.20.1gp", "META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar", new String[] {
-            "META-INF/external-deps/commons-logging-1.0.4.jar",
+            "META-INF/external-deps/commons-logging-1.1.1.jar",
             "META-INF/external-deps/hadoop-0.20.1gp-core.jar"
     });
 
