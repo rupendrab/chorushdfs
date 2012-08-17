@@ -68,7 +68,7 @@ public class Hdfs {
         protectTimeout(new Callable() {
             @Override
             public Object call() throws Exception {
-                fileSystem.closeFileSystem();
+                if (fileSystem != null) fileSystem.closeFileSystem();
                 return null;
             }
         });
