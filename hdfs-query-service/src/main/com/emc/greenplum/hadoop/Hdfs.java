@@ -28,7 +28,11 @@ public class Hdfs {
     }
 
     public Hdfs(String host, String port, String username, HdfsVersion version) {
-        this.version = version;
+        if (checkVersion(host, port, username, version)) {
+            this.version = version;
+        } else {
+            this.version = detectVersion(host, port, username);
+        }
         fileSystem = loadFileSystem(host, port, username);
     }
 
@@ -101,26 +105,33 @@ public class Hdfs {
         return pluginLoader;
     }
 
-    private static HdfsVersion detectVersion(final String host, final String port, final String username) {
-        HdfsFileSystem fileSystem;
-
+    private static HdfsVersion detectVersion(String host, String port, String username) {
         for (HdfsVersion version : HdfsVersion.values()) {
-            fileSystem = getPluginLoader().fileSystem(version);
-
-            final HdfsFileSystem fileSystem1 = fileSystem;
-            protectTimeout(new Callable() {
-                public Object call() {
-                    fileSystem1.loadFileSystem(host, port, username);
-                    return  null;
-                }
-            });
-
-            if (fileSystem.loadedSuccessfully()) {
-                fileSystem.closeFileSystem();
+            if (checkVersion(host, port, username, version)) {
                 return version;
             }
         }
         return null;
+    }
+
+    private static boolean checkVersion(final String host, final String port, final String username, HdfsVersion version) {
+        if (version == null) { return false; }
+        HdfsFileSystem fileSystem = getPluginLoader().fileSystem(version);
+
+        final HdfsFileSystem fileSystem1 = fileSystem;
+        protectTimeout(new Callable() {
+            public Object call() {
+                fileSystem1.loadFileSystem(host, port, username);
+                return  null;
+            }
+        });
+
+        if (fileSystem.loadedSuccessfully()) {
+            fileSystem.closeFileSystem();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private HdfsFileSystem loadFileSystem(String host, String port, String username) {

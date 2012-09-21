@@ -54,6 +54,13 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testVersionChange() throws Exception {
+        Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "root", HdfsVersion.V1);
+        assertEquals(HdfsVersion.V0201GP, hdfs.getVersion());
+        assertNotSame(0, hdfs.list("/").size());
+    }
+
+    @Test
     public void testFindNonExistantServerVersion() throws Exception {
         Hdfs hdfs = new Hdfs("this.doesnt.exist.com", "1234", "root");
         assertNull(hdfs.getVersion());
