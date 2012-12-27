@@ -19,7 +19,7 @@ public enum HdfsVersion {
             "META-INF/external-deps/commons-logging-1.1.1.jar",
             "META-INF/external-deps/commons-lang-2.4.jar",
             "META-INF/external-deps/commons-configuration-1.6.jar",
-            "META-INF/external-deps/hadoop-core-1.0.0.jar"
+            "META-INF/external-deps/hadoop-core-1.0.3-gphd-1.2.0.0.jar"
     }),
     V0201GP("0.20.1gp", "META-INF/plugins/hdfs-plugin-v0-20-1gp-0.0.1.jar", new String[] {
             "META-INF/external-deps/commons-logging-1.1.1.jar",
