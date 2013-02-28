@@ -47,6 +47,20 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testGphd12Plugin() throws Exception {
+        Hdfs hdfs = new Hdfs("chorus-gphd12.sf.pivotallabs.com", "8020", "root");
+        assertEquals(HdfsVersion.V1, hdfs.getVersion());
+        assertNotSame(0, hdfs.list("/").size());
+    }
+//
+//    @Test
+//    public void testGphd20Plugin() throws Exception {
+//        Hdfs hdfs = new Hdfs("chorus-gphd20-1.sf.pivotallabs.com", "9000", "root");
+//        assertEquals(HdfsVersion.V2, hdfs.getVersion());
+//        assertNotSame(0, hdfs.list("/").size());
+//    }
+
+    @Test
     public void testGphd02Plugin() throws Exception {
         Hdfs hdfs = new Hdfs("chorus-gphd02.sf.pivotallabs.com", "8020", "root");
         assertEquals(HdfsVersion.V0201GP, hdfs.getVersion());
