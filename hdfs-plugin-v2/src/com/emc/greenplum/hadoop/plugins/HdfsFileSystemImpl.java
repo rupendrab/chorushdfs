@@ -27,6 +27,10 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         Configuration config = new Configuration();
         config.set("fs.defaultFS", "hdfs://" + host + ":" + port);
         config.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
+
+        // some magic to make file contents readable using the existing getContents implementation
+        config.set("dfs.client.use.legacy.blockreader", "true");
+
         try {
             fileSystem = FileSystem.get(FileSystem.getDefaultUri(config), config, username);
         } catch (Exception e) {
