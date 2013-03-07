@@ -23,23 +23,13 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
 
     @Override
     public void loadFileSystem(String host, String port, String username) {
-        try {
         loadHadoopClassLoader();
         Configuration config = new Configuration();
-            System.out.format("HELLO FROM VERSION WHATEVER: %s %s %s\n", host, port, username);
-//        config.set("fs.default.name", host + ":" + port);
         config.set("fs.defaultFS", "hdfs://" + host + ":" + port);
         config.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
-
-        System.out.println("DONE SETTING CONFIG");
-
+        try {
             fileSystem = FileSystem.get(FileSystem.getDefaultUri(config), config, username);
-            System.out.println("DONE GETTING FILESYSTEM");
-            System.out.println("");
-
         } catch (Exception e) {
-            System.out.println(e.getClass());
-            e.printStackTrace();
         } finally {
             restoreOriginalClassLoader();
         }
@@ -62,14 +52,19 @@ public class HdfsFileSystemImpl extends HdfsFileSystemPlugin {
         for(FileStatus fileStatus: fileStatuses) {
             HdfsEntity entity = new HdfsEntity();
 
-            entity.setDirectory(fileStatus.isDir());
+            entity.setDirectory(fileStatus.isDirectory());
             entity.setPath(fileStatus.getPath().toUri().getPath());
             entity.setModifiedAt(new Date(fileStatus.getModificationTime()));
             entity.setSize(fileStatus.getLen());
 
-            if(fileStatus.isDir()) {
-                FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
-                entity.setContentCount(contents.length);
+            if(fileStatus.isDirectory()) {
+                Integer length = 0;
+                try {
+                    FileStatus[] contents = fileSystem.listStatus(fileStatus.getPath());
+                    length = contents.length;
+                } catch (org.apache.hadoop.security.AccessControlException exception) {
+                }
+                entity.setContentCount(length);
             }
 
             entities.add(entity);

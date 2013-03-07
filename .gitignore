@@ -2,6 +2,7 @@
 .idea
 hdfs_query_service.iml
 target/
-*.iml
-*.iws
+**/*.iml
+**/*.ipr
+**/*.iws
 

@@ -21,8 +21,7 @@ public class HdfsFileSystemImplTest {
     @Test
     public void testHdfsFileSystemImpl() {
         HdfsFileSystem hdfs = new HdfsFileSystemImpl();
-//        hdfs.loadFileSystem("chorus-gphd20-1.sf.pivotallabs.com", "9000", "root");
-        hdfs.loadFileSystem("chorus-gphd.sf.pivotallabs.com", "8020", "root");
+        hdfs.loadFileSystem("chorus-gphd20-1.sf.pivotallabs.com", "9000", "root");
         assertNotNull(hdfs);
     }
 }
