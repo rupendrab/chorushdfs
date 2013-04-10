@@ -33,6 +33,21 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testCDH4Plugin() throws Exception {
+        Hdfs hdfs = new Hdfs("192.168.141.132", "8020", "root", HdfsVersion.VCDH4);
+        assertEquals(HdfsVersion.VCDH4, hdfs.getVersion());
+        assertNotSame(0, hdfs.list("/").size());
+    }
+
+    @Test
+    public void testCDH4PluginTwo() throws Exception {
+        Hdfs hdfs = new Hdfs("192.168.141.132", "8020", "root");
+        assertEquals(HdfsVersion.VCDH4, hdfs.getVersion());
+        assertNotSame(0, hdfs.list("/").size());
+    }
+
+    /*
+    @Test
     public void testMapRPlugin() throws Exception {
         Hdfs hdfs = new Hdfs("chorus-gpmr12.sf.pivotallabs.com", "7222", "root");
         assertEquals(HdfsVersion.V0202MAPR, hdfs.getVersion());
@@ -79,4 +94,5 @@ public class IntegrationTest {
         Hdfs hdfs = new Hdfs("this.doesnt.exist.com", "1234", "root");
         assertNull(hdfs.getVersion());
     }
+    */
 }

@@ -104,6 +104,21 @@
                 </includes>
                 <targetPath>META-INF/plugins/</targetPath>
             </resource>
+
+            <resource>
+                <directory>${project.basedir}/../hdfs-plugin-vcdh4/lib</directory>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+                <targetPath>META-INF/external-deps/</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/../hdfs-plugin-vcdh4/target</directory>
+                <includes>
+                    <include>**/hdfs-plugin*.jar</include>
+                </includes>
+                <targetPath>META-INF/plugins/</targetPath>
+            </resource>
         </resources>
 
         <plugins>
